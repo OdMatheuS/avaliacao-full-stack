@@ -1,0 +1,2 @@
+INSERT INTO tb_agendamento(conta_destino,conta_origem,data_agendamento,data_transferencia,taxa,valor_transferencia) VALUES ('000123','000321','2022-09-23','2022-09-23',33.0,1000);
+INSERT INTO tb_agendamento(conta_destino,conta_origem,data_agendamento,data_transferencia,taxa,valor_transferencia) VALUES ('000124','000324','2022-09-25','2022-09-23',12.0,2000);
