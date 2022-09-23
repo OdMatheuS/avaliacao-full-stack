@@ -1,4 +1,4 @@
-### Projeto
+
 
 #### Front:
 - Este projeto foi feito utilizando Angular (v. 10.2.4) & "Angular Material" (v. 10.2.7) para os componentes UI;
