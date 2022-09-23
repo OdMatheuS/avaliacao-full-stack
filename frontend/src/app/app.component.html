@@ -1,0 +1,117 @@
+<main>
+  <div class="container-form">
+    <form [formGroup]="formAgendamento" class="form">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Conta Origem</mat-label>
+        <input
+          type="text"
+          formControlName="contaOrigem"
+          matInput
+          required="true"
+          mask="000-000.00"
+        />
+
+        <span
+          *ngIf="
+            formAgendamento.get('contaOrigem')?.errors?.required &&
+            formAgendamento.get('contaOrigem')?.touched
+          "
+        >
+          campo inválido!
+        </span>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Conta Destino</mat-label>
+        <input
+          formControlName="contaDestino"
+          matInput
+          placeholder="XXXXX-Y"
+          required="true"
+        />
+
+        <span
+          *ngIf="
+            formAgendamento.get('contaDestino')?.errors?.required &&
+            formAgendamento.get('contaDestino')?.touched
+          "
+        >
+          campo inválido!
+        </span>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Valor da Transferência</mat-label>
+        <input
+          formControlName="valorTransferencia"
+          matInput
+          placeholder="1000"
+          required="true"
+          type="number"
+          class="example-right-align"
+          placeholder="0"
+        />
+        <span class="simbol" matPrefix>$&nbsp;</span>
+        <span
+          *ngIf="
+            formAgendamento.get('valorTransferencia')?.errors?.required &&
+            formAgendamento.get('valorTransferencia')?.touched
+          "
+        >
+          campo inválido!
+        </span>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data do Agendamento Transferência</mat-label>
+        <input
+          formControlName="dataTransferencia"
+          matInput
+          [matDatepicker]="picker"
+          [placeholder]="date"
+          required="true"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        (click)="agendarTransferencia()"
+        [disabled]="formAgendamento.invalid"
+        [matTooltip]="formAgendamento.invalid ? msgBtnAgendarTransferencia : ''"
+      >
+        Agendar Transferência
+      </button>
+    </form>
+  </div>
+
+  <div>
+    <div>
+      <table *ngIf="agendamento$ | async as data">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Conta Destino</th>
+            <th>Conta Origem</th>
+            <th>Taxa</th>
+            <th>Valor Transferência</th>
+            <th>Data Transferência</th>
+            <th>Data Agendamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data">
+            <td>{{ item.id }}</td>
+            <td>{{ item.contaDestino }}</td>
+            <td>{{ item.contaOrigem }}</td>
+            <td>{{ item.taxa | currency: "USD" }}</td>
+            <td>{{ item.valorTransferencia | currency: "USD" }}</td>
+            <td>{{ item.dataTransferencia | date: "dd/MM/yyyy" }}</td>
+            <td>{{ item.dataAgendamento | date: "dd/MM/yyyy" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
